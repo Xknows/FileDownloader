@@ -18,28 +18,26 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	download(link)
+	error := download(link)
+	fmt.Println(error)
 }
-func download(link string) {
+func download(link string) error {
 	res, err := http.Get(link)
 	fmt.Printf("Starting \n")
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-			log.Fatal(err)
-		}
-	}(res.Body)
-	
+	defer res.Body.Close()
+
 	file, err := os.Create(path.Base(link))
 	if err != nil {
-		log.Fatal(err)
+		//log.Fatal(err)
+		return err
 	}
-	
+
 	size, err := io.Copy(file, res.Body)
 	if err != nil {
-		log.Fatal(err)
+		//log.Fatal(err)
+		return err
 	}
-	
+
 	sizeKb := size / 1000
 	sizeMb := sizeKb / 1000
 
@@ -50,5 +48,5 @@ func download(link string) {
 	} else if sizeKb >= 1024 {
 		fmt.Printf("Finished. size: %dMb", sizeMb)
 	}
-
+	return nil
 }
