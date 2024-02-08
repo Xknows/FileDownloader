@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/stretchr/testify/assert"
 	"net/http"
+	"os"
+	"path"
 	"testing"
 	"time"
 )
@@ -16,4 +18,14 @@ func TestMerged(t *testing.T) {
 
 	_, error := speed(res.ContentLength, someNumber)
 	assert.Equal(t, nil, error)
+}
+
+func TestCli1(t *testing.T) {
+	options = 2
+	if options == 2 {
+		name := path.Base(linkForTest)
+		file, _ := os.Create(name)
+		assert.Equal(t, name, file.Name())
+
+	}
 }
