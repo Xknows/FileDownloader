@@ -95,7 +95,7 @@ func download(link string, wg *sync.WaitGroup) {
 }
 func speed(resLength int64, time time.Duration) (speed float64, err error) {
 	calculate := float64(resLength) / time.Seconds() / 1024 / 1024
-	if speed < 0 {
+	if speed < 1 {
 		log.Fatal("speed can not be zero. check connection\n")
 	}
 	fmt.Printf("Approximate download Speed: %.3f Mbps\n"+"total time: %.2f second \n", calculate, time.Seconds())
