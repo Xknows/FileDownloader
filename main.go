@@ -101,4 +101,3 @@ func speed(resLength int64, time time.Duration) (speed float64, err error) {
 	fmt.Printf("Approximate download Speed: %.3f Mbps\n"+"total time: %.2f second \n", calculate, time.Seconds())
 	return calculate, nil
 }
-//1
